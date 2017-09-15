@@ -9,7 +9,7 @@ import com.example.domain.Movie;
 import com.example.repository.MovieRepository;
 
 @Service
-public class DemoService {
+public class MovieService {
 
 	@Autowired
 	MovieRepository movieRepository;
@@ -17,5 +17,20 @@ public class DemoService {
 	public List<Movie> findAll() {
 		return movieRepository.findAll();
 	}
-    
+
+	public Movie findOne(Integer id) {
+		return movieRepository.findOne(id);
+	}
+
+	public Movie create(Movie movie) {
+		return movieRepository.save(movie);
+	}
+
+	public Movie update(Movie movie) {
+		return movieRepository.save(movie);
+	}
+
+	public void delete(Integer id) {
+		movieRepository.delete(id);
+	}
 }

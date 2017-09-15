@@ -16,4 +16,16 @@ public class MovieRepository {
 	public List<Movie> findAll() {
 		return new ArrayList<>(movieMap.values());
 	}
+
+	public Movie findOne(Integer id) {
+		return movieMap.get(id);
+	}
+
+	public Movie save(Movie movie) {
+		return movieMap.put(movie.getId(), movie);
+	}
+
+	public void delete(Integer id) {
+		movieMap.remove(id);
+	}
 }
