@@ -1,12 +1,12 @@
-package com.example.service;
+package com.example.demo.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.domain.Movie;
-import com.example.repository.MovieRepository;
+import com.example.demo.domain.Movie;
+import com.example.demo.repository.MovieRepository;
 
 @Service
 public class MovieService {

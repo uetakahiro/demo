@@ -1,4 +1,4 @@
-package com.example.repository;
+package com.example.demo.repository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import org.springframework.stereotype.Repository;
 
-import com.example.domain.Movie;
+import com.example.demo.domain.Movie;
 
 @Repository
 public class MovieRepository {
