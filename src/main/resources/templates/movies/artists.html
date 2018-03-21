@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+	<meta charset="UTF-8"/>
+	<title>Favorites</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/lity/1.6.6/lity.css' />
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato' />
+    <link rel="stylesheet" th:href="@{/css/style-movie.css}" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+</head>
+<body>
+	<div id="header">
+		<a th:href="@{/movies}"><img th:src="@{/img/logo/1_Primary_logo_on_transparent_153x73.png}" alt="Favorites" class="logo" /></a>
+	</div>
+	<div id="main">
+	
+	    <h2>Artists</h2>
+		<div style="text-align: center;"><!--
+		 --><div th:each="artist, stat : ${artists}" class="artist-inline"><!--
+			 --><div class="media-image"><!--
+				 --><div class="artist-rank-inline"><p th:text="${stat.count}">0</p></div><!--
+				 --><div class="artist-image-inline"><!--
+					 --><a th:href="@{'/artists/' + ${artist.name}}"><img th:src="@{'/img/artist/' + ${artist.id} + '.jpg'}" alt="" style="width: 100%;" /></a><!--
+					 --><p><a th:href="@{'/artists/' + ${artist.name}}" th:text="${artist.name}">artist</a></p><!--
+				 --></div><!--
+			 --></div><!--
+		 --></div><!--
+	 --></div>
+	 
+	 	<h2>Graph</h2>
+	    <div style="text-align: center;">
+			<div class="graph-inline">
+			    <canvas id="types" class="graph-inline"></canvas>
+				<script th:inline="javascript">
+				/*<![CDATA[*/
+				var types = /*[[${types}]]*/
+				var typeNum = /*[[${typeNum}]]*/
+				var ctx = document.getElementById("types").getContext("2d");
+				var myPie = new Chart(ctx, {
+					type: 'pie',
+					data: {
+						labels: types,
+						datasets: [{
+							backgroundColor: [
+							    "#2ecc71",
+							    "#3498db",
+							    "#95a5a6",
+							    "#9b59b6",
+							    "#f1c40f",
+							    "#e74c3c",
+							    "#34495e"
+							  ],
+							data: typeNum
+						}]
+					},
+					options: {
+						  title: {
+						    display: true,
+						    text: 'Type'
+						  }
+					}
+				});
+				/*]]>*/
+				</script>
+			</div>
+		</div>
+	</div>
+
+	<div id="footer">
+		<ul class="management-inline">
+		    <li><form th:action="@{/movies/caps-moviename}" method="post">
+				<input type="submit" value="MovieName情報追加"/>
+			</form></li>
+			<li><form th:action="@{/movies/artists}" method="post">
+				<input type="submit" value="Artist情報追加"/>
+			</form></li>
+			<li><form th:action="@{/movies/types}" method="post">
+				<input type="submit" value="Type情報追加"/>
+			</form></li>
+			<li><form th:action="@{/movies/refresh-cache}" method="post">
+				<input type="submit" value="Cache再読込み"/>
+			</form></li>
+			<li><form action="#" th:action="@{/logout}" method="post">
+				<input type="submit" value="ログアウト" />
+			</form></li>
+		</ul>
+		<p class="copyright"><small>Copyright &copy; since 2017 Favorite All Rights Reserved.</small></p>
+	</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
+		th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/lity/1.6.6/lity.js'></script>
+</body>
+</html>

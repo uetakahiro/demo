@@ -1,64 +1,224 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<head lang="en">
-		<meta charset="UTF-8"/>
-		<title>Movies</title>
-		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-        	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"/>
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
-        	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap-theme.min.css}"/>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
-        <script src="/js/Chart.js" th:src="@{/js/Chart.js}"></script>
-        <script>
-			var doughnutData = [
-			　　{
-			　　　value: 30,
-			　　　color:"#aaf2fb"
-			　　},
-			　　{
-			　　　value: 50,
-			　　　color: "#ffb6b9"
-			　　},
-			　　{
-			　　　value: 120,
-			　　　color: "#ffe361"
-			　　},
-			   {
-			　　　value: 170,
-			　　　color: "#fbaa6e"
-			　　},
-			   {
-			　　　value: 70,
-			　　　color: "#A8BECB"
-			　　}
-			];
-			var myDoughnut = new Chart(document.getElementById("sample").getContext("2d")).Doughnut(doughnutData);
-		</script>
-	</head>
-	<body>
-	<div class="container">
-	    <h1>動画管理システム</h1>
-	    <div class="col-sm-12">
-			<table class="table table-striped table-bordered table-condensed">
-				<tr>
-					<th>ID</th>
-					<th>名前</th>
-					<th>タイプ</th>
-					<th>視聴回数</th>
-				</tr>
-				<tr th:each="movie : ${movies}">
-					<td th:text="${movie.id}">100</td>
-					<td th:text="${movie.name}">movie</td>
-					<td th:text="${movie.type}">type</td>
-					<td th:text="${movie.viewNum}">0</td>
-				</tr>
-			</table>
+<head lang="en">
+	<meta charset="UTF-8"/>
+	<title>Favorites</title>
+	<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"/>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/lity/1.6.6/lity.css' />
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato' />
+    <link rel="stylesheet" th:href="@{/css/style-movie.css}" />
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+</head>
+<body>
+	<div id="header">
+		<img th:src="@{/img/logo/1_Primary_logo_on_transparent_153x73.png}" alt="Favorites" class="logo" />
+	</div>
+	<div id="main">
+		<h2>Top Movies</h2>
+		<div style="text-align: center;">
+			<div th:each="movie, stat : ${topMovies}" th:object="${movie}" class="media">
+				<div class="media-image">
+					<a th:href="@{'/img/cover/' + ${movie.id} + '.jpg'}" data-lity="data-lity">
+						<img th:src="@{'/img/cover/' + ${movie.id} + '.jpg'}" alt="" />
+					</a>
+				</div>
+				<div class="media-summary">
+					<p th:text="*{name}">movie</p>
+					<ul class="square_btn">
+						<li th:text="*{type}">type</li>
+						<li th:text="*{viewNum}">0</li>
+						<a th:href="@{'/artists/' + *{artist}}"><li th:text="*{artist}">artist</li></a>
+					</ul>
+				</div>
+			</div>
+	    </div>
+	    
+	    <h2>Top Artists</h2>
+		<div style="text-align: center;"><!--
+		 --><div th:each="artist, stat : ${topArtists}" th:if="${stat.count le 7}" class="artist-inline"><!--
+			 --><div class="media-image"><!--
+				 --><div class="artist-rank-inline"><p th:text="${stat.count}">0</p></div><!--
+				 --><div class="artist-image-inline"><!--
+					 --><a th:href="@{'/artists/' + ${artist.name}}"><img th:src="@{'/img/artist/' + ${artist.id} + '.jpg'}" alt="${artist.name}" style="width: 100%;" /></a><!--
+					 --><p><a th:href="@{'/artists/' + ${artist.name}}" th:text="${artist.name}">artist</a></p><!--
+				 --></div><!--
+			 --></div><!--
+		 --></div><!--
+	 --></div>
+		<div style="text-align: right;width: 95%;"><a th:href="@{/artists/asc}" class="nonstyle">more</a></div>
+	    
+	    <h2>Bottom Artists</h2>
+		<div style="text-align: center;"><!--
+		 --><div th:each="artist, stat : ${bottomArtists}" th:if="${stat.count le 7}" class="artist-inline"><!--
+			 --><div class="media-image"><!--
+				 --><div class="artist-rank-inline"><p th:text="${stat.count}">0</p></div><!--
+				 --><div class="artist-image-inline"><!--
+					 --><a th:href="@{'/artists/' + ${artist.name}}"><img th:src="@{'/img/artist/' + ${artist.id} + '.jpg'}" alt="${artist.name}" style="width: 100%;" /></a><!--
+					 --><p><a th:href="@{'/artists/' + ${artist.name}}" th:text="${artist.name}">artist</a></p><!--
+				 --></div><!--
+			 --></div><!--
+		 --></div><!--
+	 --></div>
+	 	<div style="text-align: right;width: 95%;"><a th:href="@{/artists/desc}" class="nonstyle">more</a></div>
+	    
+	    <h2>Graph</h2>
+	    <div style="text-align: center;">
+		    <div class="graph-inline">
+		    	<canvas id="tags"></canvas>
+				<script th:inline="javascript">
+				/*<![CDATA[*/
+				var tags = /*[[${tags}]]*/
+				var idleTagNums = /*[[${idleTagNums}]]*/
+				var otherTagNums = /*[[${otherTagNums}]]*/
+				var ctx = document.getElementById("tags").getContext("2d");
+				var myDoughnut = new Chart(ctx, {
+					type: 'radar',
+					data: {
+						labels: tags,
+						datasets: [{
+							label: 'idle',
+							backgroundColor: "rgba(179,11,198,.2)",
+							borderColor: "rgba(179,11,198,1)",
+							data: idleTagNums
+						}, {
+							label: 'other',
+							backgroundColor: "rgba(255,153,0,0.4)",
+							borderColor: "rgba(255,153,0,1)",
+							data: otherTagNums					
+						}]
+					},
+					options: {
+						  title: {
+						    display: true,
+						    text: 'Tags'
+						  }
+					}
+				});
+				/*]]>*/
+				</script>
+			</div>
+			<div class="graph-inline">
+			    <canvas id="types" class="graph-inline"></canvas>
+				<script th:inline="javascript">
+				/*<![CDATA[*/
+				var types = /*[[${types}]]*/
+				var typeNum = /*[[${typeNum}]]*/
+				var ctx = document.getElementById("types").getContext("2d");
+				var myPie = new Chart(ctx, {
+					type: 'pie',
+					data: {
+						labels: types,
+						datasets: [{
+							backgroundColor: [
+							    "#2ecc71",
+							    "#3498db",
+							    "#95a5a6",
+							    "#9b59b6",
+							    "#f1c40f",
+							    "#e74c3c",
+							    "#34495e"
+							  ],
+							data: typeNum
+						}]
+					},
+					options: {
+						  title: {
+						    display: true,
+						    text: 'Type'
+						  }
+					}
+				});
+				/*]]>*/
+				</script>
+			</div>
+			<div class="graph-inline">
+			    <canvas id="artistViews"></canvas>
+				<script th:inline="javascript">
+				/*<![CDATA[*/
+				var artists = /*[[${topArtistNames}]]*/
+				var artistViews = /*[[${topArtistViews}]]*/
+				var ctx = document.getElementById("artistViews").getContext("2d");
+				var myBar = new Chart(ctx, {
+					type: 'bar',
+					data: {
+						labels: artists,
+						datasets: [{
+							data: artistViews
+						}]
+					},
+					options: {
+						  title: {
+						    display: true,
+						    text: 'Artist Views'
+						  }
+					}
+				});
+				/*]]>*/
+				</script>
+			</div>
 		</div>
-    </div>
-    <canvas id="sample" height="500" width="500"></canvas>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"
-		th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+		
+		<h2>Tweet</h2>
+		<div style="text-align:center;">
+			<div class="twitter-inline">
+				<a class="twitter-timeline" data-height="520px" href="https://twitter.com/kawasaki__aya?ref_src=twsrc%5Etfw">Tweets by kawasaki__aya</a>
+				<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+			</div>
+			<div class="twitter-inline">
+				<a class="twitter-timeline" data-height="520" href="https://twitter.com/toda_rei?ref_src=twsrc%5Etfw">Tweets by toda_rei</a>
+				<script src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+			</div>
+		</div>
+		
+		<h2>削除候補</h2>
+		<div class="container">
+		    <div class="col-sm-12">
+				<table class="table table-striped table-bordered table-condensed">
+					<tr>
+						<th>名前</th>
+						<th>タイプ</th>
+						<th>視聴回数</th>
+						<th>アーティスト</th>
+					</tr>
+					<tr th:each="movie, stat : ${bottomMovies}" th:object="${movie}">
+						<td th:text="*{name}">movie</td>
+						<td th:text="*{type}">type</td>
+						<td th:text="*{viewNum}">0</td>
+						<td th:text="*{artist}">artist</td>
+					</tr>
+				</table>
+			</div>
+    	</div>
+	</div>
+	
+	<div id="footer">
+		<ul class="management-inline">
+		    <li><form th:action="@{/movies/caps-moviename}" method="post">
+				<input type="submit" value="MovieName情報追加"/>
+			</form></li>
+			<li><form th:action="@{/movies/artists}" method="post">
+				<input type="submit" value="Artist情報追加"/>
+			</form></li>
+			<li><form th:action="@{/movies/types}" method="post">
+				<input type="submit" value="Type情報追加"/>
+			</form></li>
+			<li><form th:action="@{/movies/refresh-cache}" method="post">
+				<input type="submit" value="Cache再読込み"/>
+			</form></li>
+			<li><form th:action="@{/movies/artist-table}" method="post">
+				<input type="submit" value="ArtistTable情報追加"/>
+			</form></li>
+			<li><form action="#" th:action="@{/logout}" method="post">
+				<input type="submit" value="ログアウト" />
+			</form></li>
+		</ul>
+		<p class="copyright"><small>Copyright &copy; since 2017 Favorite All Rights Reserved.</small></p>
+	</div>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"
+		th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
 		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 		th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
-	</body>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/lity/1.6.6/lity.js'></script>
+</body>
 </html>

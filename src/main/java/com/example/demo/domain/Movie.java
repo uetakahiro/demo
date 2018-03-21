@@ -11,7 +11,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "metadata")
+@Table(name = "movie")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,9 +21,16 @@ public class Movie {
 	private Integer id;
 	@Column(nullable = false)
 	private String name;
-	//private String[] tags;
 	@Column(nullable = false)
-	private String type;
+	private String tag;
 	@Column(nullable = false)
 	private Integer viewNum;
+	@Column(nullable = false)
+	private String path;
+	@Column(nullable = true)
+	private String artist;
+	@Column(nullable = true)
+	private String type;
+	@Column(nullable = true)
+	private String hash;
 }

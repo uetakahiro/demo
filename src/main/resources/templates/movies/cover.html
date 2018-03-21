@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+	<meta charset="UTF-8"/>
+	<title>Favorites</title>
+	<meta name="description" content="" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<link rel="stylesheet" th:href="@{/css/style-cover.css}" />
+	<link rel="stylesheet" th:href="@{/css/remodal.css}">
+	<link rel="stylesheet" th:href="@{/css/remodal-default-theme.css}">
+	<link rel="stylesheet" th:href="@{/css/login-form.css}" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+	<script th:src="@{/js/covervid-gh-pages/covervid.min.js}"></script>
+	<script th:src="@{/js/remodal.min.js}"></script>
+</head>
+	
+<body>
+	<!-- Video Markup -->
+	<div class="masthead">
+		<video class="masthead-video" autoplay loop muted>
+			<source th:src="@{/img/covervid/videos/dreamscapes.mp4}" type="video/mp4">
+			<source th:src="@{/img/covervid/videos/dreamscapes.webm}" type="video/webm">
+		</video>
+		<div class="masthead-overlay"></div>
+		<div class="masthead-arrow"></div>
+		<h1 class="cover-h1"><a th:href="@{/movies}" class="cover-a">Favorites</a><span>Movie Management System</span></h1>
+		<a class="masthead-video-credit" href="http://vimeo.com/82495711" target="_blank">
+			<span>Video: Dreamscapes</span>
+			<span>by Jonathan Besler</span>
+		</a>
+	</div>
+	
+	<div class="remodal" data-remodal-id="login" id="modal-area">
+		<h1 class="login-form">Sign In</h1>
+		<form th:action="@{/cover}" method="post" class="login-form">
+			<p th:if="${loginError}"><em>Username or password is wrong.</em></p>
+			<div class="form-item">
+				<label for="username"></label> <input type="username" id="username" name="username"
+					required="required" placeholder="Email Address"></input>
+			</div>
+			<div class="form-item">
+				<label for="password"></label> <input type="password" id="password"
+					name="password" required="required" placeholder="Password"></input>
+			</div>
+			<div class="button-panel">
+				<input type="submit" class="button" title="Sign In" value="Sign In"></input>
+			</div>
+		</form>
+		<div class="sns-text">
+			<p>Sign In with SNS</p>
+		</div>
+		<div class="sns-inline">
+			<a th:href="@{/oauth2/authorization/google}"><img th:src="@{/img/sns/color/Google+.png}"></a>
+		</div>
+		<div class="sns-inline">
+			<img th:src="@{/img/sns/color/Facebook.png}">
+		</div>
+		<div class="sns-inline">
+			<img th:src="@{/img/sns/color/Twitter.png}">
+		</div>
+		<div class="form-footer">
+			<p>
+				<a href="#">Create an account</a>
+			</p>
+			<p>
+				<a href="#">Forgot password?</a>
+			</p>
+		</div>
+	</div>
+	
+	<!-- Call CoverVid -->
+	<script type="text/javascript">
+		$('.covervid-video').coverVid(1920, 1080);
+	</script>
+</body>
+	
+</html>
