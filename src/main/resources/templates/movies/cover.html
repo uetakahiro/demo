@@ -18,8 +18,8 @@
 	<!-- Video Markup -->
 	<div class="masthead">
 		<video class="masthead-video" autoplay loop muted>
-			<source th:src="@{/img/covervid/videos/dreamscapes.mp4}" type="video/mp4">
-			<source th:src="@{/img/covervid/videos/dreamscapes.webm}" type="video/webm">
+			<source th:src="${imgPath} + '/img/covervid/videos/dreamscapes.mp4'" type="video/mp4">
+			<source th:src="${imgPath} + '/img/covervid/videos/dreamscapes.webm'" type="video/webm">
 		</video>
 		<div class="masthead-overlay"></div>
 		<div class="masthead-arrow"></div>
@@ -50,13 +50,13 @@
 			<p>Sign In with SNS</p>
 		</div>
 		<div class="sns-inline">
-			<a th:href="@{/oauth2/authorization/google}"><img th:src="@{/img/sns/color/Google+.png}"></a>
+			<a th:href="@{/oauth2/authorization/google}"><img th:src="${imgPath} + '/img/sns/color/Google%2B.png'"></a>
 		</div>
 		<div class="sns-inline">
-			<img th:src="@{/img/sns/color/Facebook.png}">
+			<img th:src="${imgPath} + '/img/sns/color/Facebook.png'">
 		</div>
 		<div class="sns-inline">
-			<img th:src="@{/img/sns/color/Twitter.png}">
+			<img th:src="${imgPath} + '/img/sns/color/Twitter.png'">
 		</div>
 		<div class="form-footer">
 			<p>

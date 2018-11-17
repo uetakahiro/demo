@@ -12,15 +12,15 @@
 </head>
 <body>
 	<div id="header">
-		<img th:src="@{/img/logo/1_Primary_logo_on_transparent_153x73.png}" alt="Favorites" class="logo" />
+		<img th:src="${imgPath} + '/img/logo/1_Primary_logo_on_transparent_153x73.png'" alt="Favorites" class="logo" />
 	</div>
 	<div id="main">
 		<h2>Top Movies</h2>
 		<div style="text-align: center;">
 			<div th:each="movie, stat : ${topMovies}" th:object="${movie}" class="media">
 				<div class="media-image">
-					<a th:href="@{'/img/cover/' + ${movie.id} + '.jpg'}" data-lity="data-lity">
-						<img th:src="@{'/img/cover/' + ${movie.id} + '.jpg'}" alt="" />
+					<a th:href="${imgPath} + '/cover/' + ${movie.id} + '.jpg'" data-lity="data-lity">
+						<img th:src="${imgPath} + '/cover/' + ${movie.id} + '.jpg'" alt="" />
 					</a>
 				</div>
 				<div class="media-summary">
@@ -40,27 +40,13 @@
 			 --><div class="media-image"><!--
 				 --><div class="artist-rank-inline"><p th:text="${stat.count}">0</p></div><!--
 				 --><div class="artist-image-inline"><!--
-					 --><a th:href="@{'/artists/' + ${artist.name}}"><img th:src="@{'/img/artist/' + ${artist.id} + '.jpg'}" alt="${artist.name}" style="width: 100%;" /></a><!--
+					 --><a th:href="@{'/artists/' + ${artist.name}}"><img th:src="${imgPath} + '/artist/' + ${artist.id} + '.jpg'" alt="${artist.name}" style="width: 100%;" /></a><!--
 					 --><p><a th:href="@{'/artists/' + ${artist.name}}" th:text="${artist.name}">artist</a></p><!--
 				 --></div><!--
 			 --></div><!--
 		 --></div><!--
 	 --></div>
 		<div style="text-align: right;width: 95%;"><a th:href="@{/artists/asc}" class="nonstyle">more</a></div>
-	    
-	    <h2>Bottom Artists</h2>
-		<div style="text-align: center;"><!--
-		 --><div th:each="artist, stat : ${bottomArtists}" th:if="${stat.count le 7}" class="artist-inline"><!--
-			 --><div class="media-image"><!--
-				 --><div class="artist-rank-inline"><p th:text="${stat.count}">0</p></div><!--
-				 --><div class="artist-image-inline"><!--
-					 --><a th:href="@{'/artists/' + ${artist.name}}"><img th:src="@{'/img/artist/' + ${artist.id} + '.jpg'}" alt="${artist.name}" style="width: 100%;" /></a><!--
-					 --><p><a th:href="@{'/artists/' + ${artist.name}}" th:text="${artist.name}">artist</a></p><!--
-				 --></div><!--
-			 --></div><!--
-		 --></div><!--
-	 --></div>
-	 	<div style="text-align: right;width: 95%;"><a th:href="@{/artists/desc}" class="nonstyle">more</a></div>
 	    
 	    <h2>Graph</h2>
 	    <div style="text-align: center;">
@@ -208,6 +194,9 @@
 			</form></li>
 			<li><form th:action="@{/movies/artist-table}" method="post">
 				<input type="submit" value="ArtistTable情報追加"/>
+			</form></li>
+			<li><form th:action="@{/movies/migrate}" method="post">
+				<input type="submit" value="Migration"/>
 			</form></li>
 			<li><form action="#" th:action="@{/logout}" method="post">
 				<input type="submit" value="ログアウト" />

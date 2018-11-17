@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div id="header">
-		<a th:href="@{/movies}"><img th:src="@{/img/logo/1_Primary_logo_on_transparent_153x73.png}" alt="Favorites" class="logo" /></a>
+		<a th:href="@{/movies}"><img th:src="${imgPath} + '/img/logo/1_Primary_logo_on_transparent_153x73.png'" alt="Favorites" class="logo" /></a>
 	</div>
 	<div id="main">
 	
@@ -20,8 +20,8 @@
 		<div style="text-align: center;">
 			<div th:each="movie, stat : ${artistMovies}" th:object="${movie}" class="media">
 				<div class="media-image">
-					<a th:href="@{'/img/cover/' + ${movie.id} + '.jpg'}" data-lity="data-lity">
-						<img th:src="@{'/img/cover/' + ${movie.id} + '.jpg'}" alt="" />
+					<a th:href="${imgPath} + '/cover/' + ${movie.id} + '.jpg'" data-lity="data-lity">
+						<img th:src="${imgPath} + '/cover/' + ${movie.id} + '.jpg'" alt="" />
 					</a>
 				</div>
 				<div class="media-summary">

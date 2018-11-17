@@ -138,6 +138,36 @@ public class MovieService {
 		}
 	}
 
+	public void capsMovie() {
+		for (Movie movie : movieCache) {
+			String[] pathArray = movie.getPath().split("\\\\");
+			int point = pathArray[pathArray.length - 1].lastIndexOf('.');
+			if (point != -1) {
+				movie.setName(pathArray[pathArray.length - 1].substring(0, point));
+				update(movie);
+			}
+		}
+	}
+
+	public void createTypes() {
+		for (Movie movie : movieCache) {
+			if (movie.getPath().contains("Other")) {
+				movie.setType("other");
+			} else {
+				movie.setType("idle");
+			}
+			update(movie);
+		}
+	}
+
+	public void createArtist() {
+		for (Movie movie : movieCache) {
+			String[] pathArray = movie.getPath().split("\\\\");
+			movie.setArtist(pathArray[pathArray.length - 2]);
+			update(movie);
+		}
+	}
+
 	private static class MovieType {
 		private String name;
 		private Integer num;

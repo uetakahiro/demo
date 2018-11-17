@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div id="header">
-		<a th:href="@{/movies}"><img th:src="@{/img/logo/1_Primary_logo_on_transparent_153x73.png}" alt="Favorites" class="logo" /></a>
+		<a th:href="@{/movies}"><img th:src="${imgPath} + '/img/logo/1_Primary_logo_on_transparent_153x73.png'" alt="Favorites" class="logo" /></a>
 	</div>
 	<div id="main">
 	
@@ -22,7 +22,7 @@
 			 --><div class="media-image"><!--
 				 --><div class="artist-rank-inline"><p th:text="${stat.count}">0</p></div><!--
 				 --><div class="artist-image-inline"><!--
-					 --><a th:href="@{'/artists/' + ${artist.name}}"><img th:src="@{'/img/artist/' + ${artist.id} + '.jpg'}" alt="" style="width: 100%;" /></a><!--
+					 --><a th:href="@{'/artists/' + ${artist.name}}"><img th:src="@{${imgPath} + '/artist/' + ${artist.id} + '.jpg'}" alt="" style="width: 100%;" /></a><!--
 					 --><p><a th:href="@{'/artists/' + ${artist.name}}" th:text="${artist.name}">artist</a></p><!--
 				 --></div><!--
 			 --></div><!--
